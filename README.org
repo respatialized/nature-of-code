@@ -1,0 +1,15 @@
+* nature-of-code
+
+A collection of Quil sketches adapting Daniel Shiffman's "The Nature of Code" to Clojure + Quil
+
+* Usage
+
+LightTable - open `core.clj` and press `Ctrl+Shift+Enter` to evaluate the file.
+
+Emacs - run cider, open `core.clj` and press `C-c C-k` to evaluate the file.
+
+REPL - run `(require 'nature-of-code.core)`.
+
+* License
+
+Distributed under the [GNU Lesser General Public License](http://www.gnu.org/licenses/lgpl.html), just as the original code samples (albeit a newer version - v3).
