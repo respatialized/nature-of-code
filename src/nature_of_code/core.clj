@@ -3,8 +3,6 @@
             [quil.middleware :as m]))
 
 (defn setup []
-  ; Set frame rate to 30 frames per second.
-  (q/frame-rate 30)
   ; Set color mode to HSB (HSV) instead of default RGB.
   (q/color-mode :hsb)
   ; setup function returns initial state. It contains
@@ -32,7 +30,7 @@
       ; Draw the circle.
       (q/ellipse x y 100 100))))
 
-(defn -main [& args]
+(defn main [& args]
   (q/defsketch nature-of-code
     :title "You spin my circle right round"
     :size [500 500]

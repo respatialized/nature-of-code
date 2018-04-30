@@ -1,0 +1,28 @@
+* 1.1 Random Walks
+
+The book begins by discussing how to implement Brownian motion through objects. We don't have objects in Clojure, so a central topic of this chapter's adaptation will be how to implement the same concepts in a functional way.
+
+Shiffman writes: 
+
+#+BEGIN_QUOTE
+"An object in Processing is an entity that has both data and functionality. We are looking to design a
+Walker object that both keeps track of its data (where it exists on the screen) and has the capability
+to perform certain actions (such as draw itself or take a step)."
+#+END_QUOTE
+
+This is alien to functional programming. We instead will seek to write /functions/ which /update state/ and /render state/. 
+
+#+BEGIN_SRC clojure
+
+(def example_walker {:x 0 :y 0})
+
+#+END_SRC
+
+We really don't need more than this to keep track of how our walker is doing over time.
+
+** Putting it all together
+When tangled, this code block will execute a self-contained version of the walker example.
+
+#+BEGIN_SRC clojure :tangle ch1-1.clj
+
+#+END_SRC
