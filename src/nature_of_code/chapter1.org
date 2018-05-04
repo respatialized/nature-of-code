@@ -16,15 +16,73 @@ This is alien to functional programming. We instead will seek to write /function
 
 (def example_walker {:x 0 :y 0})
 
+
+(def sketchWidth 500)
+(def sketchHeight 500)
+(def walker_start {:x (/ sketchWidth 2)
+                   :y (/ sketchHeight 2)})
+
+; side effects
+(def display_walker [w]
+  (point (get w :x) (get w :y)) 
+; we don't yet have the function (point x y) - it's a htdp-style wishlist!
+)
+
+(defn walker_update [w]
+ (let c (rand-int 4)
+  (cond
+    (= c 0) {:x (+ 1 (get w :x)) :y (get w :y)}
+    (= c 1) {:x (- 1 (get w :x)) :y (get w :y)}
+    (= c 2) {:x (get w :x) :y (+ 1 (get w :y))}
+    (= c 3) {:x (get w :x) :y (- 1 (get w :y))}
+   )
+  )
+)
+
 #+END_SRC
 
 We really don't need more than this to keep track of how our walker is doing over time.
 
-** Putting it all together
+/there's probably some too-clever-by-half way of rewriting the update function to be shorter using polar coordinates (which might look pretty cool), but that would require some sampling to map between the polar coordinates and the discrete pixels of the canvas/
+
+We can intuitively test the behavior of ~walker_update~ using the thread-first macro. Execute the block many times and see the result change each time:
+#+BEGIN_SRC clojure
+(-> example_walker
+   walker_update
+   walker_update
+   walker_update
+   walker_update
+   walker_update
+   walker_update
+   walker_update)
+#+END_SRC
+
+
+** Putting the walker together
 When tangled, this code block will execute a self-contained version of the walker example.
 
-#+BEGIN_SRC clojure :tangle ch1-1.clj
+#+BEGIN_SRC clojure :tangle ch1-walker.clj
+(ns ch1.walker
+  (:require [quil.core :as q]
+            [quil.middleware :as m])
 
+(def display_walker [w]
+  (q/point (get w :x) (get w :y))
+)
+
+
+(defn setup [width height] ; this function is called when the sketch is first set up
+  (q/color-mode :hsb) ; side effect 1: sketch mode
+  {:x (/ width 2) :y (/height 2)} ; start at the center
+  ; all state is encapsulated by a single walker
+)
+
+(defn draw [walker]
+  (q/background 50)
+  (q/fill 205)
+
+
+(defn draw
 
 
 #+END_SRC
