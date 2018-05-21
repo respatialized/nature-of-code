@@ -169,15 +169,39 @@ However, this representation is still equally weighted at any given update betwe
 
 That idea? Polar coordinates.
 #+BEGIN_SRC clojure :tangle ch1_dynamic_walker.clj
-; returns the 
-(def xy_to_polar [x y]
- )
 
 ; returns an x/y pair based on the angle of theta
-(def polar_to_xy [theta]
-  
-  {:x :y}
+(defn polar_to_xy [theta]
+  {:x (Math/round (Math/sin theta))
+   :y (* -1  (Math/round (Math/cos theta)))} ; converting from cartesian to canvas coordinates
 )
+(assert (= (polar_to_xy (/ Math/PI 4)) {:x 1 :y -1}))
+
+(defn walker_update/polar [w]
+  (let [coords (polar_to_xy (rand (* Math/PI 2)))]
+   {:x (+ (get w :x) (round (get coords :x)))
+    :y (+ (get w :y) (round (get coords :y)))
+  }
+ )
+)
+; remaps a val (between -1 and 1) to the corresponding value in range
+(defn remap [range val] 
+ (let [mn (apply min range) mx (apply max range)]
+  (+ mn (/ (* (- val -1) (- mx mn)) 2))))
+  
+
+(defn walker_update/polar2 [w xspace yspace]
+  (let [coords (polar_to_xy (rand (* Math/PI 2)))]
+   {:x (+ (get w :x) (remap xspace (get coords :x)))
+    :y (+ (get w :y) (remap yspace (get coords :y)))
+  }
+ )
+)
+
+
 #+END_SRC
 
+#+RESULTS:
+
+Later on, we'll see how these trig functions can be eliminated using linear algebra.
  
