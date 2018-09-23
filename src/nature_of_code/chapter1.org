@@ -197,8 +197,6 @@ That idea? Polar coordinates.
   }
  )
 )
-
-
 #+END_SRC
 
 #+RESULTS:
